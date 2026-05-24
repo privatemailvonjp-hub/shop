@@ -9,7 +9,7 @@
   :root {
     --ocean-deep: #020d1a; --ocean-mid: #041e36; --aqua: #00c9d8; --aqua-glow: #00f0ff;
     --foam: #e8f9fb; --text: #ddf4f8; --text-muted: #7db4c0;
-    --parrot-rank: #ff9000; --parrotplus-rank: #ffcc00;
+    --patron-rank: #ff9000; --patronplus-rank: #ffcc00;
     --dolphin-rank: #00c9d8; --dolphinplus-rank: #00f0ff; --elite-rank: #8a6fff;
     --eliteplus-rank: #b9a0ff; --vip-rank: #f5c842; --booster-rank: #ff7eb3;
     --discord-color: #5865F2; --crate-common: #9da8b0; --crate-prime: #4fc3f7;
@@ -111,7 +111,7 @@
   .rank-dolphin{--rank-color:var(--dolphin-rank)}.rank-dolphinplus{--rank-color:var(--dolphinplus-rank)}
   .rank-elite{--rank-color:var(--elite-rank)}.rank-eliteplus{--rank-color:var(--eliteplus-rank)}
   .rank-vip{--rank-color:var(--vip-rank)}.rank-booster{--rank-color:var(--booster-rank)}
-  .rank-parrot{--rank-color:var(--parrot-rank)}.rank-parrotplus{--rank-color:var(--parrotplus-rank)}
+  .rank-patron{--rank-color:var(--patron-rank)}.rank-patronplus{--rank-color:var(--patronplus-rank)}
 
   /* DISCORD SECTION */
   .discord-section{padding:4rem;max-width:800px;margin:0 auto;text-align:center}
@@ -204,6 +204,25 @@
   .paypal-cancel-btn{background:none;border:none;color:var(--text-muted);font-size:0.85rem;cursor:pointer;margin-top:0.8rem;font-family:'Nunito',sans-serif;text-decoration:underline}
   .modal-disclaimer{font-size:0.78rem;color:var(--text-muted);text-align:center;margin-top:1rem;line-height:1.5}
 
+  /* UPGRADES */
+  .upgrades-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+  .upgrade-card{background:rgba(4,30,54,0.7);border:1px solid rgba(0,201,216,0.15);border-radius:16px;padding:1.8rem 1.4rem;text-align:center;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+  .upgrade-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,0.4)}
+  .upgrade-arrow{display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-bottom:1rem}
+  .upgrade-from{font-family:'Cinzel',serif;font-size:1rem;font-weight:700}
+  .upgrade-chevron{color:var(--text-muted);font-size:1.2rem}
+  .upgrade-to{font-family:'Cinzel',serif;font-size:1rem;font-weight:700}
+  .upgrade-label{font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem}
+  .upgrade-savings{display:inline-block;font-size:0.75rem;font-weight:700;background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.25);color:var(--aqua);border-radius:20px;padding:3px 10px;margin-bottom:1rem}
+  .upgrade-price{font-family:'Cinzel',serif;font-size:1.8rem;font-weight:700;color:var(--foam);margin-bottom:0.2rem}
+  .upgrade-price span{font-size:0.9rem;color:var(--text-muted);font-family:'Nunito',sans-serif}
+  .upgrade-perks{list-style:none;margin:1rem 0;text-align:left;display:flex;flex-direction:column;gap:0.4rem}
+  .upgrade-perks li{font-size:0.82rem;color:var(--text-muted);padding-left:1.2rem;position:relative;line-height:1.4}
+  .upgrade-perks li::before{content:'＋';position:absolute;left:0;color:#00ff9d;font-size:0.7rem;top:1px;font-weight:700}
+  .upgrade-buy-btn{width:100%;background:transparent;border:1px solid rgba(0,201,216,0.4);color:var(--aqua);border-radius:8px;padding:0.7rem;font-size:0.9rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px}
+  .upgrade-buy-btn:hover{background:rgba(0,201,216,0.15);border-color:var(--aqua)}
+  .upgrade-section-title{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--text-muted);margin:2rem 0 1rem;padding-left:0.5rem;border-left:3px solid var(--aqua);letter-spacing:1px}
+
   /* FOOTER */
   footer{border-top:1px solid rgba(0,201,216,0.1);padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:4rem}
   .footer-logo{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--aqua-glow)}
@@ -281,7 +300,7 @@
       <button class="lang-btn"        onclick="setLang('en')">EN</button>
     </div>
     <button onclick="openAdmin()" style="background:rgba(255,68,68,0.12);border:1px solid rgba(255,68,68,0.35);color:#ff6b6b;border-radius:8px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px" onmouseover="this.style.background='rgba(255,68,68,0.22)'" onmouseout="this.style.background='rgba(255,68,68,0.12)'">🔐 Admin</button>
-    <div class="nav-ip" onclick="copyIP()">dolphinsmp.de</div>
+    <div class="nav-ip" onclick="copyIP()">dolphin.smp.quest</div>
   </div>
 </nav>
 
@@ -313,19 +332,20 @@
     <div class="section-divider"></div>
   </div>
 
-  <div class="shop-tabs">
+
     <button class="shop-tab active" onclick="switchTab('ranks')" data-de="🏆 Ränge" data-en="🏆 Ranks">🏆 Ränge</button>
     <button class="shop-tab" onclick="switchTab('crates')" data-de="📦 Crates" data-en="📦 Crates">📦 Crates</button>
+    <button class="shop-tab" onclick="switchTab('upgrades')" data-de="⬆️ Upgrades" data-en="⬆️ Upgrades">⬆️ Upgrades</button>
   </div>
 
   <!-- RANKS TAB -->
   <div class="shop-section active" id="tab-ranks">
     <div class="ranks-grid">
 
-      <!-- PARROT+ -->
-      <div class="rank-card rank-parrotplus featured" onclick="openModal('Parrot+','20.00','#ffcc00')" style="--rank-color:#ffcc00">
+      <!-- PATRON+ -->
+      <div class="rank-card rank-patronplus featured" onclick="openModal('Patron+','20.00','#ffcc00')" style="--rank-color:#ffcc00">
         <span class="rank-icon">👑✨</span>
-        <div class="rank-name">Parrot+</div>
+        <div class="rank-name">Patron+</div>
         <div class="rank-tier" data-de="Bester Rang" data-en="Best Rank">Bester Rang</div>
         <div class="rank-price"><span style="text-decoration:line-through;color:var(--text-muted);font-size:1rem;font-family:'Nunito',sans-serif">€40.00</span> <span style="color:#ff4444;font-size:0.72rem;font-weight:700;background:rgba(255,68,68,0.15);border:1px solid rgba(255,68,68,0.4);border-radius:6px;padding:2px 6px;margin-left:4px">-50%</span><br>€20.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
         <ul class="rank-perks">
@@ -340,10 +360,10 @@
         <button class="rank-buy-btn" data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</button>
       </div>
 
-      <!-- PARROT -->
-      <div class="rank-card rank-parrot" onclick="openModal('Parrot','17.50','#ff9000')" style="--rank-color:#ff9000">
+      <!-- PATRON -->
+      <div class="rank-card rank-patron" onclick="openModal('Patron','17.50','#ff9000')" style="--rank-color:#ff9000">
         <span class="rank-icon">👑</span>
-        <div class="rank-name">Parrot</div>
+        <div class="rank-name">Patron</div>
         <div class="rank-tier" data-de="Zweitbester Rang" data-en="2nd Best Rank">Zweitbester Rang</div>
         <div class="rank-price"><span style="text-decoration:line-through;color:var(--text-muted);font-size:1rem;font-family:'Nunito',sans-serif">€35.00</span> <span style="color:#ff4444;font-size:0.72rem;font-weight:700;background:rgba(255,68,68,0.15);border:1px solid rgba(255,68,68,0.4);border-radius:6px;padding:2px 6px;margin-left:4px">-50%</span><br>€17.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
         <ul class="rank-perks">
@@ -542,6 +562,260 @@
     </div>
   </div>
 
+  <!-- UPGRADES TAB -->
+  <div class="shop-section" id="tab-upgrades">
+    <div style="background:rgba(0,201,216,0.06);border:1px solid rgba(0,201,216,0.2);border-radius:12px;padding:1rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--text-muted)">
+      <span style="font-size:1.3rem">💡</span>
+      <span data-de="Upgrade-Preise sind die Differenz zum neuen Rang – du zahlst nur den Aufpreis!" data-en="Upgrade prices are the difference to the new rank – you only pay the surcharge!">Upgrade-Preise sind die Differenz zum neuen Rang – du zahlst nur den Aufpreis!</span>
+    </div>
+
+    <!-- Booster & VIP Upgrades -->
+    <div class="upgrade-section-title" data-de="⬆️ Von Booster / VIP" data-en="⬆️ From Booster / VIP">⬆️ Von Booster / VIP</div>
+    <div class="upgrades-grid">
+
+      <!-- Booster → VIP -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Booster → VIP','2.50','#f5c842')" style="border-color:rgba(245,200,66,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#ff7eb3">Booster</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#f5c842">VIP</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €7.50 vs. Neukauf" data-en="Save €7.50 vs. new purchase">Spare €7.50 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="VIP Kit freischalten" data-en="Unlock VIP Kit">VIP Kit freischalten</li>
+          <li data-de="Alle bisherigen Perks behalten" data-en="Keep all previous perks">Alle bisherigen Perks behalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Booster → Elite -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Booster → Elite','5.00','#8a6fff')" style="border-color:rgba(138,111,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#ff7eb3">Booster</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#8a6fff">Elite</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €5.00 vs. Neukauf" data-en="Save €5.00 vs. new purchase">Spare €5.00 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="3 Home-Punkte" data-en="3 Home Points">3 Home-Punkte</li>
+          <li data-de="Elite Kit freischalten" data-en="Unlock Elite Kit">Elite Kit freischalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- VIP → Elite -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: VIP → Elite','2.50','#8a6fff')" style="border-color:rgba(138,111,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#f5c842">VIP</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#8a6fff">Elite</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €5.00 vs. Neukauf" data-en="Save €5.00 vs. new purchase">Spare €5.00 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Alle Elite-Kits freischalten" data-en="Unlock all Elite Kits">Alle Elite-Kits freischalten</li>
+          <li data-de="Alle bisherigen Perks behalten" data-en="Keep all previous perks">Alle bisherigen Perks behalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- VIP → Elite+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: VIP → Elite+','5.00','#b9a0ff')" style="border-color:rgba(185,160,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#f5c842">VIP</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#b9a0ff">Elite+</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €5.00 vs. Neukauf" data-en="Save €5.00 vs. new purchase">Spare €5.00 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Elite+ Kit freischalten" data-en="Unlock Elite+ Kit">Elite+ Kit freischalten</li>
+          <li data-de="Extra Home-Punkt" data-en="Extra Home Point">Extra Home-Punkt</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+    </div>
+
+    <!-- Elite / Elite+ Upgrades -->
+    <div class="upgrade-section-title" data-de="⬆️ Von Elite / Elite+" data-en="⬆️ From Elite / Elite+">⬆️ Von Elite / Elite+</div>
+    <div class="upgrades-grid">
+
+      <!-- Elite → Elite+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Elite → Elite+','2.50','#b9a0ff')" style="border-color:rgba(185,160,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#8a6fff">Elite</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#b9a0ff">Elite+</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €7.50 vs. Neukauf" data-en="Save €7.50 vs. new purchase">Spare €7.50 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Elite+ Kit freischalten" data-en="Unlock Elite+ Kit">Elite+ Kit freischalten</li>
+          <li data-de="Alle bisherigen Perks behalten" data-en="Keep all previous perks">Alle bisherigen Perks behalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Elite → Dolphin -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Elite → Dolphin','5.00','#00c9d8')" style="border-color:rgba(0,201,216,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#8a6fff">Elite</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#00c9d8">Dolphin</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €7.50 vs. Neukauf" data-en="Save €7.50 vs. new purchase">Spare €7.50 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Dolphin Kit freischalten" data-en="Unlock Dolphin Kit">Dolphin Kit freischalten</li>
+          <li data-de="4 Home-Punkte" data-en="4 Home Points">4 Home-Punkte</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Elite+ → Dolphin -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Elite+ → Dolphin','2.50','#00c9d8')" style="border-color:rgba(0,201,216,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#b9a0ff">Elite+</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#00c9d8">Dolphin</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €10.00 vs. Neukauf" data-en="Save €10.00 vs. new purchase">Spare €10.00 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Dolphin Kit freischalten" data-en="Unlock Dolphin Kit">Dolphin Kit freischalten</li>
+          <li data-de="4 Home-Punkte" data-en="4 Home Points">4 Home-Punkte</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Elite+ → Dolphin+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Elite+ → Dolphin+','5.00','#00f0ff')" style="border-color:rgba(0,240,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#b9a0ff">Elite+</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#00f0ff">Dolphin+</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €10.00 vs. Neukauf" data-en="Save €10.00 vs. new purchase">Spare €10.00 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Dolphin+ Kit freischalten" data-en="Unlock Dolphin+ Kit">Dolphin+ Kit freischalten</li>
+          <li data-de="5 Home-Punkte" data-en="5 Home Points">5 Home-Punkte</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+    </div>
+
+    <!-- Dolphin Upgrades -->
+    <div class="upgrade-section-title" data-de="⬆️ Von Dolphin / Dolphin+" data-en="⬆️ From Dolphin / Dolphin+">⬆️ Von Dolphin / Dolphin+</div>
+    <div class="upgrades-grid">
+
+      <!-- Dolphin → Dolphin+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Dolphin → Dolphin+','2.50','#00f0ff')" style="border-color:rgba(0,240,255,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#00c9d8">Dolphin</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#00f0ff">Dolphin+</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €12.50 vs. Neukauf" data-en="Save €12.50 vs. new purchase">Spare €12.50 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Dolphin+ Kit freischalten" data-en="Unlock Dolphin+ Kit">Dolphin+ Kit freischalten</li>
+          <li data-de="Alle bisherigen Perks behalten" data-en="Keep all previous perks">Alle bisherigen Perks behalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Dolphin → Patron -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Dolphin → Patron','5.00','#ff9000')" style="border-color:rgba(255,144,0,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#00c9d8">Dolphin</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#ff9000">Patron</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €12.50 vs. Neukauf" data-en="Save €12.50 vs. new purchase">Spare €12.50 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Alle Kits freischalten" data-en="Unlock all Kits">Alle Kits freischalten</li>
+          <li data-de="/smithingtable Befehl" data-en="/smithingtable command">/smithingtable Befehl</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Dolphin+ → Patron -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Dolphin+ → Patron','2.50','#ff9000')" style="border-color:rgba(255,144,0,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#00f0ff">Dolphin+</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#ff9000">Patron</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €15.00 vs. Neukauf" data-en="Save €15.00 vs. new purchase">Spare €15.00 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Alle Kits freischalten" data-en="Unlock all Kits">Alle Kits freischalten</li>
+          <li data-de="/smithingtable Befehl" data-en="/smithingtable command">/smithingtable Befehl</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+      <!-- Dolphin+ → Patron+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Dolphin+ → Patron+','5.00','#ffcc00')" style="border-color:rgba(255,204,0,0.3)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#00f0ff">Dolphin+</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#ffcc00">Patron+</span>
+        </div>
+        <div class="upgrade-label" data-de="Rang-Upgrade" data-en="Rank Upgrade">Rang-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €15.00 vs. Neukauf" data-en="Save €15.00 vs. new purchase">Spare €15.00 vs. Neukauf</div>
+        <div class="upgrade-price">€5.00 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Bester Rang!" data-en="Best Rank!">Bester Rang!</li>
+          <li data-de="Alle Kits + alle Perks" data-en="All Kits + all Perks">Alle Kits + alle Perks</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+    </div>
+
+    <!-- Patron Upgrades -->
+    <div class="upgrade-section-title" data-de="⬆️ Von Patron" data-en="⬆️ From Patron">⬆️ Von Patron</div>
+    <div class="upgrades-grid" style="max-width:300px">
+
+      <!-- Patron → Patron+ -->
+      <div class="upgrade-card" onclick="openModal('Upgrade: Patron → Patron+','2.50','#ffcc00')" style="border-color:rgba(255,204,0,0.4)">
+        <div class="upgrade-arrow">
+          <span class="upgrade-from" style="color:#ff9000">Patron</span>
+          <span class="upgrade-chevron">→</span>
+          <span class="upgrade-to" style="color:#ffcc00">Patron+</span>
+        </div>
+        <div class="upgrade-label" data-de="Top-Upgrade" data-en="Top Upgrade">Top-Upgrade</div>
+        <div class="upgrade-savings" data-de="Spare €17.50 vs. Neukauf" data-en="Save €17.50 vs. new purchase">Spare €17.50 vs. Neukauf</div>
+        <div class="upgrade-price">€2.50 <span data-de="/ einmalig" data-en="/ one-time">/ einmalig</span></div>
+        <ul class="upgrade-perks">
+          <li data-de="Bester Rang auf DolphinSMP!" data-en="Best rank on DolphinSMP!">Bester Rang auf DolphinSMP!</li>
+          <li data-de="Alle bisherigen Perks behalten" data-en="Keep all previous perks">Alle bisherigen Perks behalten</li>
+        </ul>
+        <button class="upgrade-buy-btn" data-de="Upgrade kaufen" data-en="Buy Upgrade">Upgrade kaufen</button>
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 <!-- DISCORD SECTION -->
@@ -637,7 +911,7 @@
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
-    <h3 data-de="Kaufen" data-en="Purchase">Kaufen</h3>
+    <h3 id="modal-heading" data-de="Kaufen" data-en="Purchase">Kaufen</h3>
     <div class="modal-rank-name" id="modal-rank-name"></div>
     <label data-de="Minecraft-Benutzername" data-en="Minecraft Username">Minecraft-Benutzername</label>
     <input type="text" id="modal-username" placeholder="DeinUsername">
@@ -755,6 +1029,10 @@
     document.getElementById('modal-price').textContent = '€' + price;
     document.getElementById('modal-username').value = '';
     document.getElementById('modal-email').value = '';
+    const isUpgrade = name.startsWith('Upgrade:');
+    document.getElementById('modal-heading').textContent = isUpgrade
+      ? (currentLang === 'de' ? 'Upgrade kaufen' : 'Buy Upgrade')
+      : (currentLang === 'de' ? 'Kaufen' : 'Purchase');
     document.getElementById('modal').classList.add('active');
   }
 
@@ -939,7 +1217,7 @@
   }
 
   function copyIP() {
-    navigator.clipboard.writeText('DolphinSMP.de').then(() => {
+    navigator.clipboard.writeText('dolphin.smp.quest').then(() => {
       showToast(currentLang === 'de' ? '📋 Server-IP kopiert!' : '📋 Server IP copied!');
     });
   }
